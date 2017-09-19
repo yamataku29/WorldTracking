@@ -27,6 +27,13 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func addButton(_ sender: UIButton) {
+        let node = SCNNode()
+        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.black
+        node.position = SCNVector3(0,0,-0.3)
+        self.sceneView.scene.rootNode.addChildNode(node)
+    }
+    
 }
 
