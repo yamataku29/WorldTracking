@@ -35,5 +35,17 @@ class ViewController: UIViewController {
         self.sceneView.scene.rootNode.addChildNode(node)
     }
     
+    @IBAction func resetButton(_ sender: UIButton) {
+        resetSession()
+    }
+    
+    func resetSession(){
+        self.sceneView.session.pause()
+        self.sceneView.scene.rootNode.enumerateChildNodes {(node, _) in
+            node.removeFromParentNode()
+        }
+        
+        self.sceneView.session.run(configration, options: [.resetTracking, .removeExistingAnchors])
+    }
 }
 
