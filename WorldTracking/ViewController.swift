@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.session.run(configration)
+        self.sceneView.autoenablesDefaultLighting = true
         
     }
 
@@ -28,11 +29,25 @@ class ViewController: UIViewController {
     }
 
     @IBAction func addButton(_ sender: UIButton) {
+        
+        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
+        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        
         let node = SCNNode()
-        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.black
-        node.position = SCNVector3(0,0,-0.3)
+
+        // Box Node
+        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.05)
+        let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+
+
+        node.geometry?.firstMaterial?.specular.contents = UIColor.black
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+        node.position = SCNVector3(x,y,z)
+        
         self.sceneView.scene.rootNode.addChildNode(node)
+
     }
     
     @IBAction func resetButton(_ sender: UIButton) {
@@ -46,6 +61,10 @@ class ViewController: UIViewController {
         }
         
         self.sceneView.session.run(configration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    func randomNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
 }
 
