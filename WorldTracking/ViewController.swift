@@ -29,10 +29,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func addButton(_ sender: UIButton) {
-        
-        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
-        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        
+                
         let node = SCNNode()
 
         // Box Node
@@ -42,8 +39,8 @@ class ViewController: UIViewController {
         let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
 
 
-        node.geometry?.firstMaterial?.specular.contents = UIColor.black
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+        node.geometry?.firstMaterial?.specular.contents = UIColor.yellow
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.black
         node.position = SCNVector3(x,y,z)
         
         self.sceneView.scene.rootNode.addChildNode(node)
